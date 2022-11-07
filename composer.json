@@ -1,0 +1,15 @@
+{
+    "name": "megaport/blog_php",
+    "autoload": {
+        "psr-4": {
+            "Megaport\\BlogPhp\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Brigui-nizar",
+            "email": "brigui.nizar@gmail.com"
+        }
+    ],
+    "require": {}
+}
