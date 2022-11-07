@@ -2,7 +2,7 @@
     "name": "megaport/blog_php",
     "autoload": {
         "psr-4": {
-            "Megaport\\BlogPhp\\": "src/"
+            "App\\": "src/"
         }
     },
     "authors": [
