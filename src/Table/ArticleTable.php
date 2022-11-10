@@ -4,24 +4,50 @@ declare(strict_types=1);
 
 namespace App\Table;
 
-use PDO;
 use App\Core\BaseTable;
 use App\Entity\Article;
+use PDO;
 
 /**
- * Search article in DataBase FROM articles
+ * Représente la table des articles
  */
 class ArticleTable extends BaseTable
 {
     /**
-     * Search All Article in DataBase FROM articles
-     * @return array([Article::class],[Article::class],...)
+     * Retourne le tableau de tout les article de la
+     * base de données
      */
     public function findAll(): array
     {
-        $request = $this->pdo->prepare('SELECT * FROM articles ');
+        // Préparation de la requête SQL
+        $request = $this->pdo->prepare("SELECT * FROM articles");
+
+        // Lancement de la requête
         $request->execute();
 
-        return  $request->fetchAll(PDO::FETCH_CLASS, Article::class);
+        // Récupérer les résultats, sous forme de tableaux de la class
+        // Article
+        $articles = $request->fetchAll(PDO::FETCH_CLASS, Article::class);
+
+        return $articles;
+    }
+
+    /**
+     * Retourne le tableau des 10 derniers articles de la
+     * base de données
+     */
+    public function findLastTen(): array
+    {
+        // Préparation de la requête SQL
+        $request = $this->pdo->prepare("SELECT * FROM articles ORDER BY createdAt DESC LIMIT 10");
+
+        // Lancement de la requête
+        $request->execute();
+
+        // Récupérer les résultats, sous forme de tableaux de la class
+        // Article
+        $articles = $request->fetchAll(PDO::FETCH_CLASS, Article::class);
+
+        return $articles;
     }
 }

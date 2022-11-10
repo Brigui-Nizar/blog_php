@@ -4,44 +4,42 @@ declare(strict_types=1);
 
 namespace App\Core;
 
-use PDO;
-use Exception;
 use Dotenv\Dotenv;
+use Exception;
 
+/**
+ * Cette classe charge la configuration contenue dans des variables
+ * d'environement. Permet d'accéder et de tester facilement
+ * la configuration de notre application.
+ */
 class Configuration
 {
     public function __construct(string $envDir)
     {
+        // On lie et obtient les variables d'environement
+        // du fichier ".env"
         Dotenv::createImmutable($envDir)->load();
     }
+
     /**
-     *  Tester si une configuration éxsiste :
-     *  */ 
+     * Test si une variable d'environement éxsiste
+     */
     public function has(string $envVariable): bool
     {
         return isset($_ENV[$envVariable]);
     }
+
     /**
-     * Récupére une valeur de configuration
-     */ 
+     * Récupére une variable d'environement. Attention,
+     * une erreur survient si la variable n'éxiste pas.
+     */
     public function get(string $envVariable): mixed
     {
+        // Tester si la variable éxiste
         if ($this->has($envVariable)) {
-
             return $_ENV[$envVariable];
         }
 
-        throw new Exception("Errorr , $envVariable n'existe pas");
+        throw new Exception("Oups, la variable d'environement $envVariable n'éxiste pas. Peut-être avez-vous fais une faute de frappe ?");
     }
-
-    /* public function connectDatabase() :PDO
-    {
-        $pdo =new PDO(
-            "mysql:host={$this->get('DATABASE_HOST')};
-            port={$this->get('DATABASE_PORT')};
-            dbname={$this->get('DATABASE_NAME')}",
-            $this->get('DATABASE_USER'),
-            $this->get('DATABASE_PASSWORD'),);
-            return $pdo;
-    } */
 }

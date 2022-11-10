@@ -1,5 +1,4 @@
 vendor
-test.txt
-.env
-docker-compose.yml
-dockerfile
+*.test
+/archive/
+composer.lock

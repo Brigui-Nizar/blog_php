@@ -9,39 +9,48 @@ use App\Core\BaseTable;
 use App\Entity\User;
 
 /**
- * Search User in DataBase FROM users
+ * Représent la table de nos utilisateurs
  */
 class UserTable extends BaseTable
 {
-    protected string $tableName="users";
     /**
-     * Search All User in DataBase FROM users
-     * @return array([User::class],[User::class],...)
+     * Retourne le tableau de tout les utilisateurs
+     * de la base de données
      */
     public function findAll(): array
     {
-        $request = $this->pdo->prepare('SELECT * FROM users');
+        // Préparation de la requête SQL
+        $request = $this->pdo->prepare("SELECT * FROM users");
+
+        // Lancement de la requête
         $request->execute();
 
-        return  $request->fetchAll(PDO::FETCH_CLASS, User::class);
+        // Récupérer les résultats, sous forme de tableaux de la class
+        // User
+        $users = $request->fetchAll(PDO::FETCH_CLASS, User::class);
+
+        return $users;
     }
 
     /**
-     * Search User in DataBase FROM users
-     * @param int $id
-     * @return User::class
+     * Insert un nouvel utilisateur dans la base de données
      */
-    public function findbyId(int $id)
+    public function insert(User $user): void
     {
-        $request = $this->pdo->prepare('SELECT * FROM users WHERE id=:id');
-        $request->bindParam(':id', $id, PDO::PARAM_INT);
-        $request->execute();
-        $request->setFetchMode(PDO::FETCH_CLASS, User::class);
-        return  $request->fetch();
-    }
+        // Préparation de la requête SQL
+        $request = $this->pdo->prepare("
+            INSERT INTO users (email, password, firstname, lastname, createdAt, updatedAt)
+            VALUES (:email, :password, :firstname, :lastname, :createdAt, :updatedAt)
+        ");
 
-    public function FunctionName()
-    {
-       return $this::class;
+        // On lance la requête avec les bon paramètres
+        $request->execute([
+            'email' => $user->email,
+            'password' => $user->password,
+            'firstname' => $user->firstname,
+            'lastname' => $user->lastname,
+            'createdAt' => $user->createdAt,
+            'updatedAt' => $user->updatedAt,
+        ]);
     }
 }
