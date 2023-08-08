@@ -21,17 +21,18 @@ class HomeController extends BaseController
         // Je récupére mes articles
         $articles = $this->container->get(ArticleTable::class)->findLastTen();
 
-        // Je retourne le template (page) "home" en lui donnant tout les
-        // articles
+        // Je retourne le template (page) "home" en lui donnant tout les 10 derniers articles
         return $this->container->get(View::class)->render('home', [
             'articles' => $articles,
+            'pageTitle' => 'Bienvenue sur mon blog',
+            'pageBackground' => '/assets/img/bg-index.jpg'
         ]);
     }
 
     /**
      * @inheritdoc
      */
-    public function supports(string $uri): bool
+    public function supports(string $method, string $uri): bool
     {
         return $uri === '/';
     }

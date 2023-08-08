@@ -30,5 +30,5 @@ abstract class BaseController
      * si l'uri correspond au controller, faux si l'uri ne correspond
      * pas
      */
-    abstract public function supports(string $uri): bool;
+    abstract public function supports(string $method, string $uri): bool;
 }

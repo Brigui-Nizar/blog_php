@@ -14,10 +14,12 @@ class LoginController extends BaseController
 {
     public function run(): string
     {
-        return $this->container->get(View::class)->render('login');
+        return $this->container->get(View::class)->render('login', [
+            'pageTitle' => 'connexion'
+        ]);
     }
 
-    public function supports(string $uri): bool
+    public function supports(string $method, string $uri): bool
     {
         return $uri === '/connexion';
     }

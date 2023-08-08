@@ -2,3 +2,5 @@ vendor
 *.test
 /archive/
 composer.lock
+.env.local
+bin

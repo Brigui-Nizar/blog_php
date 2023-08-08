@@ -18,7 +18,9 @@ class SubscriptionController extends BaseController
     public function run(): string
     {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-            return $this->container->get(View::class)->render('subscription');
+            return $this->container->get(View::class)->render('subscription', [
+                'pageTitle' => 'Inscription'
+            ]);
         }
 
         // Création d'un nouvelle utilisateur
@@ -37,10 +39,11 @@ class SubscriptionController extends BaseController
 
         return $this->container->get(View::class)->render('subscription', [
             'success' => "Bienvenue à vous {$user->email}",
+            'pageTitle' => "Bienvenue à vous {$user->email}",
         ]);
     }
 
-    public function supports(string $uri): bool
+    public function supports(string $method, string $uri): bool
     {
         return $uri === '/inscription';
     }

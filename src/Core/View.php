@@ -38,8 +38,24 @@ class View
             throw new Exception("Oups, il n'y a pas de « templates » (page) qui correspond à $filename");
         }
 
+        // on envoie quelques variable d'environnement;       
+        $socialMedia = [
+            'email' => $_ENV['SITE_EMAIL'],
+            'twitter' => $_ENV['SITE_USERNAME_TWITTER'],
+            'facebook' => $_ENV['SITE_USERNAME_FACEBOOK'],
+            'linkedin' => $_ENV['SITE_USERNAME_LINKEDIN'],
+            'github' => $_ENV['SITE_USERNAME_GITHUB'],
+            'instagram' => $_ENV['SITE_USERNAME_INSTAGRAM'],
+        ];
+        $siteTitle = $_ENV['SITE_TITLE'];
+        $siteDescription = $_ENV['SITE_DESCRIPTION'];
         // Nous incluons le fichier
-        include $filename;
+        require_once  "{$this->templateDir}/layout/_includes/head.tpl.php";
+        require_once  "{$this->templateDir}/layout/_includes/navbar.tpl.php";
+        require_once  $filename;
+        require_once  "{$this->templateDir}/layout/_includes/footer.tpl.php";
+        require_once  "{$this->templateDir}/layout/_includes/scripts.tpl.php";
+        //require_once  "{$this->templateDir}/layout/_includes/google-analytics.html";
 
         // Je retourne le fichier inclue :
         return ob_get_clean();

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Core;
 
+use App\Controller\ArticlesController;
 use App\Controller\HelloController;
 use App\Controller\HomeController;
 use App\Controller\LoginController;
@@ -57,7 +58,9 @@ class Container
             ->add(HelloController::class, new HelloController($container))
             // Création du controller de la page d'accueil
             ->add(HomeController::class, new HomeController($container))
-            // Création du controller de la page coneexion
+            // Création du controller de la page d'articles
+            ->add(ArticlesController::class, new ArticlesController($container))
+            // Création du controller de la page connexion
             ->add(LoginController::class, new LoginController($container))
             // Création du controller de la page d'inscription
             ->add(SubscriptionController::class, new SubscriptionController($container))
@@ -65,6 +68,7 @@ class Container
             ->add(Router::class, new Router([
                 $container->get(HelloController::class),
                 $container->get(HomeController::class),
+                $container->get(ArticlesController::class),
                 $container->get(LoginController::class),
                 $container->get(SubscriptionController::class),
             ]));

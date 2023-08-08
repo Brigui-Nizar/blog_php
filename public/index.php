@@ -8,7 +8,7 @@ use App\Core\Container;
 require __DIR__ . '/../vendor/autoload.php';
 
 // On test si l'on demande un fichier se terminant par les extensions suivante
-if (preg_match("/(.css|.png|.jpeg|.js|.gif|.pdf|.mp3|.mp4|.html|.jpg)$/i", $_SERVER['REQUEST_URI'])) {
+if (preg_match("/(.css|.png|.jpeg|.js|.gif|.pdf|.mp3|.mp4|.html|.jpg|.map|.php)$/i", $_SERVER['REQUEST_URI'])) {
     // On demande à PHP de ne pas se lancer. Ainsi ce sera le fichier
     // demandé qui sera retourné dans notre navigateur
     return false;
@@ -17,4 +17,4 @@ if (preg_match("/(.css|.png|.jpeg|.js|.gif|.pdf|.mp3|.mp4|.html|.jpg)$/i", $_SER
 // Démarage de l'application
 echo Container::boot()
     ->get(Router::class)
-    ->start($_SERVER['REQUEST_URI']);
+    ->start($_SERVER['REQUEST_METHOD'], isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : '/', isset($_SERVER['QUERY_STRING']) ? $_SERVER['QUERY_STRING'] : null);

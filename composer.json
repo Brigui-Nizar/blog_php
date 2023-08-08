@@ -1,5 +1,5 @@
 {
-    "name": "djeg/formation-php-poo",
+    "name": "megaport/blog_php",
     "autoload": {
         "psr-4": {
             "App\\": "src/"
@@ -7,6 +7,9 @@
     },
     "authors": [
         {
+            "name": "Brigui-nizar",
+            "email": "brigui.nizar@gmail.com"
+        },{
             "name": "David Jegat",
             "email": "david.jegat@gmail.com"
         }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+#[\AllowDynamicProperties]
 class Article
 {
     public int $id;
